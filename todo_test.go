@@ -49,19 +49,4 @@ func TestTodos(t *testing.T) {
 		assert.NoError(t, a.FindTodos(c))
 		assert.Equal(t, http.StatusOK, rec.Code)
 	})
-
-	t.Run("it should be able to create a todo", func(t *testing.T) {
-		createTodoJSON := `{"title": "test"}`
-
-		e := echo.New()
-		req := httptest.NewRequest(http.MethodPost, "/api/v1/todos", strings.NewReader(createTodoJSON))
-		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
-		rec := httptest.NewRecorder()
-		c := e.NewContext(req, rec)
-		a := &App{DB: newTestDB()}
-		a.SetupDB()
-
-		assert.NoError(t, a.FindTodos(c))
-		assert.Equal(t, http.StatusOK, rec.Code)
-	})
 }
